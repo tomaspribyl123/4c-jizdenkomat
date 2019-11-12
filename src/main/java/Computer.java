@@ -4,6 +4,7 @@ import java.util.Map;
 public class Computer {
     private Display display;
     private Map<Integer, Jizdenka> ticketsMap = new HashMap<>();
+    private Map<Integer, Mince> MinceMap = new HashMap<>();
     private  JizdenkoMatState stavJizdenkomatu = JizdenkoMatState.START;
     private Jizdenka selectedJizdenka = null;
 
@@ -11,6 +12,7 @@ public class Computer {
     public Computer() {
         this.display = new Display();
         this.initTickets();
+        this.Mince();
     }
 
 
@@ -22,10 +24,20 @@ public class Computer {
         ticketsMap.put(5, new Jizdenka(100, 720));
         ticketsMap.put(6, new Jizdenka(200, 1440));
     }
+    private void Mince(){
+        MinceMap.put(1, new Mince(1));
+        MinceMap.put(2, new Mince(2));
+        MinceMap.put(3, new Mince(5));
+        MinceMap.put(4, new Mince(10));
+        MinceMap.put(5, new Mince(20));
+        MinceMap.put(6, new Mince(50));
+
+    }
 
     public void displayTickets() {
         display.displayTickets(this.ticketsMap);
     }
+    public void displayPrice(){display.displayPrice(this.MinceMap);}
 
     public Map<Integer, Jizdenka> getTicketsMap() {
         return ticketsMap;
@@ -46,6 +58,7 @@ public class Computer {
 
     }
 
+
     public  JizdenkoMatState getStavJizdenkomatu()
     {return stavJizdenkomatu; }
 
@@ -53,7 +66,8 @@ public class Computer {
         this.stavJizdenkomatu = stavJizdenkomatu; }
 
 
-    public Jizdenka getSelectedJizdenka() {
-        return selectedJizdenka;
+    public Jizdenka getSelectedJizdenka( String scannedValue) {
+
+       return selectedJizdenka;
     }
 }
