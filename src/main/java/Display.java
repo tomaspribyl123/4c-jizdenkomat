@@ -18,4 +18,16 @@ public class Display {
         System.out.println(String.format("Byla vybrána jízdenka na pozici %s délka %s min za %s Kč",
                 position, jizdenka.getTrvani(), jizdenka.getHodnota()));
     }
+
+
+    public void displayPrice(Map<Integer,Mince> minceMap) {
+        if (!minceMap.isEmpty()) {
+            for (Map.Entry<Integer, Mince> entry : minceMap.entrySet()) {
+                Mince mince = entry.getValue();
+
+                System.out.println(String.format("%s: Mince v hodnotě %s kč ",
+                        entry.getKey(), mince.getHodnotaMince()));
+            }
+        }
+    }
 }
