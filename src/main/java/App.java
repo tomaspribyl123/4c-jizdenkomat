@@ -5,6 +5,7 @@ public class App {
         Scanner SCANNER = new Scanner(System.in);
         Computer computer = new Computer();
         String scannedValue = null;
+        String hodnotaMince;
 
         do {
             switch (computer.getStavJizdenkomatu()) {
@@ -14,12 +15,10 @@ public class App {
                     computer.handleScannedValue(scannedValue);
                     break;
                 case TICKET_GET:
-                    Jizdenka selectedJizdenka = computer.getSelectedJizdenka(scannedValue);
-                    System.out.println("Máš vybranou jízdenku: " + selectedJizdenka);
-                    System.out.println("Požadovaná cena za jízdenku: " + selectedJizdenka.getHodnota());
-                    System.out.println("Vložce požadované mince:");
                     computer.displayPrice();
-                    // TODO: ...
+
+
+
 
                 default:
                     scannedValue = "end";
