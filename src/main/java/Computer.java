@@ -7,14 +7,15 @@ public class Computer {
     private Map<Integer, Mince> MinceMap = new HashMap<>();
     private  JizdenkoMatState stavJizdenkomatu = JizdenkoMatState.START;
     private Jizdenka selectedJizdenka = null;
+    private Mince mince;
+    private Jizdenka jizdenka;
 
 
     public Computer() {
         this.display = new Display();
         this.initTickets();
-        this.Mince();
+        this.mince();
     }
-
 
     private void initTickets() {
         ticketsMap.put(1, new Jizdenka(16, 20));
@@ -24,7 +25,7 @@ public class Computer {
         ticketsMap.put(5, new Jizdenka(100, 720));
         ticketsMap.put(6, new Jizdenka(200, 1440));
     }
-    private void Mince(){
+    private void mince(){
         MinceMap.put(1, new Mince(1));
         MinceMap.put(2, new Mince(2));
         MinceMap.put(3, new Mince(5));
@@ -38,26 +39,46 @@ public class Computer {
         display.displayTickets(this.ticketsMap);
     }
     public void displayPrice(){display.displayPrice(this.MinceMap);}
+    public void displayPridavaniMinci(){display.displayPridavaniMinci(mince);}
 
     public Map<Integer, Jizdenka> getTicketsMap() {
         return ticketsMap;
     }
 
-    public Jizdenka handleScannedValue(String scannedValue) throws IllegalAccessException {
+    public Jizdenka handleScannedValue(String scannedValue)  {
         int key = Integer.parseInt(scannedValue);
-
+        try{
         if (this.ticketsMap.containsKey(key)) {
-            Jizdenka jzd = ticketsMap.get(key);
-            this.display.displayTicket(key, jzd);
+            selectedJizdenka = ticketsMap.get(key);
+            this.display.displayTicket(key, selectedJizdenka);
             stavJizdenkomatu = JizdenkoMatState.TICKET_GET;
-            return jzd;
+
         }else{
-            stavJizdenkomatu = JizdenkoMatState.TICKET_ERROR;
-            throw new IllegalAccessException("Nejedná se o platnou jízdenku!");
+            System.out.println("Takový lístek neexistuje");
         }
+        }catch (RuntimeException e) {
+            e.getMessage();
+
+        }
+        return selectedJizdenka;
+}
+
+/*
+    public int odecitaniMinci(String hodnotaMince)throws IllegalAccessException {
+        int key2 = Integer.parseInt(hodnotaMince);
+        int cena = jizdenka.getHodnota() ;
+        if(cena > key2){
+            jizdenka.setHodnota(mince.getHodnotaMince() - key2);
+        } else if(cena < key2){
+            System.out.println("Nic");
+        } else if(cena == 0){
+            System.out.println("Lístek je zaplacen");
+        }
+        return cena;
+
 
     }
-
+*/
 
     public  JizdenkoMatState getStavJizdenkomatu()
     {return stavJizdenkomatu; }
@@ -66,7 +87,7 @@ public class Computer {
         this.stavJizdenkomatu = stavJizdenkomatu; }
 
 
-    public Jizdenka getSelectedJizdenka( String scannedValue) {
+    public Jizdenka getSelectedJizdenka() {
 
        return selectedJizdenka;
     }
